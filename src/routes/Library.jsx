@@ -1,4 +1,3 @@
-import styles from './Library.module.css'
 import Shelf from '../components/Shelf'
 
 import { Link } from "react-router-dom"
@@ -11,7 +10,7 @@ export default function Library() {
         <Container>
             <NavBar />
             <Box
-                sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
                 <h1 style={{ color: 'black' }}>Library</h1>
                 <Link
                     to="/library/newshelf"
@@ -32,22 +31,22 @@ export default function Library() {
                     </Button>
                 </Link>
             </Box>
-            <Container sx={{ display: 'flex', flexDirection: 'row' }}>
-                <Box sx={{ flex: 2 }}>
-                    <Shelf shelfName="Want to read" />
+            <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: '-2rem' }}>
+                <Box sx={{ flex: 2, margin: '2rem' }}>
+                    <Shelf shelfName="Want To Read" shelfId="1"/>
                 </Box>
-                <Box sx={{ flex: 2 }}>
-                    <Shelf shelfName="Want to read" />
+                <Box sx={{ flex: 2, margin: '2rem'  }}>
+                    <Shelf shelfName="Did Not Finish" shelfId="2" />
                 </Box>
-            </Container>
-            <Container sx={{ display: 'flex', flexDirection: 'row' }}>
-                <Box sx={{ flex: 2 }}>
-                    <Shelf shelfName="Want to read" />
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: '-2rem', marginTop: '1rem' }}>
+                <Box sx={{ flex: 2, margin: '2rem'  }}>
+                    <Shelf shelfName="To Be Read" shelfId="3" />
                 </Box>
-                <Box sx={{ flex: 2 }}>
-                    <Shelf shelfName="Want to read" />
+                <Box sx={{ flex: 2, margin: '2rem'  }}>
+                    <Shelf shelfName="Reading" shelfId="4" />
                 </Box>
-            </Container>
+            </Box>
         </Container>
     )
 }

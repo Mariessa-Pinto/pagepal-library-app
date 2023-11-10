@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom"
+import { Container, Box, Button } from "@mui/material";
 
 import NavBar from "../components/NavBar"
 
 export default function Shelf() {
     return (
-        <div>
+        <Container>
             <NavBar/>
             <p>
                 <Link to="/library/shelf/1/addbook">Add Book</Link>
@@ -18,6 +19,6 @@ export default function Shelf() {
             <p>
                 <Link to="/library">Library</Link>
             </p>
-        </div>
+        </Container>
     )
 }
