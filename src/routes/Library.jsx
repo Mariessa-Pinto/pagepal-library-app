@@ -25,7 +25,6 @@ export default function Library() {
                             '&:hover, &.Mui-focusVisible': {
                                 backgroundColor: '#A6633C',}
                         }}
-                        
                     >
                     Add a Shelf
                     </Button>
