@@ -9,21 +9,22 @@ export default function AddBookCard(props) {
             display: 'flex', 
             flexDirection: 'row',
             justifyContent: 'space-between', 
-            alignItems: 'center'
+            alignItems: 'flex-start',
+            gap: 2
         }}>
             <img
                 src={BookCover}
                 alt='books on shelf'
                 width={195}
                 height={255}
-                style={{}}
+                style={{marginTop: 20}}
             />
-            <Box>
+            <Box sx={{}}>
                 <h2 style={{fontSize: 18}}>{props.bookName}</h2>
-                <p style={{fontSize: 16}}>by {props.bookAuthor}</p>
-                <p style={{fontSize: 16}}>{props.description}</p>
+                <p style={{fontSize: 16, marginTop: -20}}>by {props.bookAuthor}</p>
+                <p style={{fontSize: 16, lineHeight: 1.5}}>{props.description}</p>
             </Box>
-            <Box>
+            <Box sx={{paddingLeft: 5, paddingTop: '12%'}}>
                 <Link to={`/library/shelf/${props.shelfId}`} style={{ textDecoration: 'none', color: "#000" }}>
                     <Button
                         variant="contained"
