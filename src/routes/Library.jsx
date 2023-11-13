@@ -7,7 +7,10 @@ export default function Library() {
     return (
         <Container>
             <NavBar />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', "@media (max-width: 768px)": {
+            
+            marginLeft: '1.5rem'
+          }, }}>
                 <h1 style={{ color: 'black' }}>Library</h1>
                 <Link to="/library/newshelf" style={{ textDecoration: 'none' }}>
                     <Button
@@ -20,6 +23,10 @@ export default function Library() {
                             '&:hover, &.Mui-focusVisible': {
                                 backgroundColor: '#A6633C',
                             },
+                            "@media (max-width: 768px)": {
+            
+                                marginLeft: '7rem'
+                              },
                         }}
                     >
                         Add a Shelf
@@ -33,6 +40,11 @@ export default function Library() {
                     justifyContent: 'space-between',
                     gap: '1rem',
                     marginTop: '2rem',
+                    flexDirection: "row", // Default flexDirection: 'row', updated for small screens
+          "@media (max-width: 768px)": {
+            flexDirection: "column", // Change to 'column' on smaller screens
+            marginLeft: '1.5rem',
+          },
                 }}
             >
                 <Box sx={{ flex: '0 0 calc(50% - 1rem)', marginBottom: '2rem', width: '48%' }}>
@@ -41,7 +53,7 @@ export default function Library() {
                 <Box sx={{ flex: '0 0 calc(50% - 1rem)', marginBottom: '2rem', width: '48%' }}>
                     <Shelf shelfName="Did Not Finish" shelfId="2" />
                 </Box>
-                <Box sx={{ flex: '0 0 calc(50% - 1rem)', marginBottom: '2rem', width: '48%' }}>
+                <Box sx={{ flex: '0 0 calc(50% - 1rem)', marginBottom: '2rem', width: '48%',  }}>
                     <Shelf shelfName="To Be Read" shelfId="3" />
                 </Box>
                 <Box sx={{ flex: '0 0 calc(50% - 1rem)', marginBottom: '2rem', width: '48%' }}>

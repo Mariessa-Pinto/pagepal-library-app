@@ -24,7 +24,9 @@ export default function Shelf() {
                     <h3 style={{ fontSize: '24px', color: 'black' }}>Back</h3>
                 </div>
             </Link>
-            <Box sx={{ display: 'flex', gap: 3, paddingBottom: 1, flexDirection: "row", justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', gap: 3, paddingBottom: 1, flexDirection: "row", justifyContent: 'space-between', "@media (max-width: 768px)": {
+                    
+                  }, }}>
                 <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>To Be Read Shelf</h1>
                 <Link to={`/library/newshelf`} style={{ textDecoration: 'none', color: "#000" }}>
                 <Button
@@ -36,7 +38,10 @@ export default function Shelf() {
                         marginRight: '105px',
                         '&:hover, &.Mui-focusVisible': {
                             backgroundColor: '#A6633C',
-                        }
+                        },
+                        "@media (max-width: 768px)": {
+                            marginRight: '20px'
+                          },
                     }}
                 >
                     Edit Shelf
@@ -63,7 +68,9 @@ export default function Shelf() {
                     shelfId="1"
                 />
             </Box>
-            <Box sx={{ position: 'absolute', right: '0.5rem', bottom: '5rem'}}>
+            <Box sx={{ position: 'absolute', right: '0.5rem', bottom: '5rem', "@media (max-width: 768px)": {
+                    bottom: '-30rem'
+                  },}}>
                 <Link to={`/library/shelf/1/addbook`} style={{ textDecoration: 'none' }}>
                     <Button
                         variant="contained"

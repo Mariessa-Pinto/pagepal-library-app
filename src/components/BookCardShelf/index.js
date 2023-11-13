@@ -25,7 +25,9 @@ export default function AddBookCardShelf(props) {
                 <h2 style={{ fontSize: 18 }}>{props.bookName}</h2>
                 <p style={{ fontSize: 16, marginTop: -20 }}>by {props.bookAuthor}</p>
                 <p style={{ fontSize: 16, lineHeight: 1.5, maxWidth: '45rem' }}>{props.description}</p>
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingRight: '5rem', marginBottom: '1rem' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingRight: '5rem', marginBottom: '1rem', "@media (max-width: 768px)": {
+                    marginRight: '-15rem', width: '16rem'
+                  }, }}>
                     <Button
                         variant="contained"
                         sx={{
@@ -35,7 +37,10 @@ export default function AddBookCardShelf(props) {
                             marginRight: '105px',
                             '&:hover, &.Mui-focusVisible': {
                                 backgroundColor: '#A6633C',
-                            }
+                            },
+                            "@media (max-width: 768px)": {
+                                marginRight: '20px'
+                              },
                         }}
                     >Change Shelf
                     </Button>
