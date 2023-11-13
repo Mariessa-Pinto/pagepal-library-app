@@ -26,6 +26,7 @@ export default function Shelf() {
             </Link>
             <Box sx={{ display: 'flex', gap: 3, paddingBottom: 1, flexDirection: "row", justifyContent: 'space-between' }}>
                 <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>To Be Read Shelf</h1>
+                <Link to={`/library/newshelf`} style={{ textDecoration: 'none', color: "#000" }}>
                 <Button
                     variant="contained"
                     sx={{
@@ -40,6 +41,7 @@ export default function Shelf() {
                 >
                     Edit Shelf
                 </Button>
+                </Link>
             </Box>
             <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5 }} />
             <Box>
