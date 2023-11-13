@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
-import { Container, Box, Button, FormControlLabel, Checkbox, TextField, Divider } from "@mui/material";
+import { Container, Box, Button, Divider } from "@mui/material";
 import Arrow from '../assets/leftArrow.svg';
 import AddBookCardShelf from "../components/BookCardShelf";
 import NavBar from "../components/NavBar";
 
-export default function InsideShelf() {
+export default function Shelf() {
     return (
         <Container>
-            <NavBar/>
+            <NavBar />
             <Link to={`/library`} style={{ textDecoration: 'none' }}>
                 <div style={{
                     display: 'flex',
@@ -24,30 +24,24 @@ export default function InsideShelf() {
                     <h3 style={{ fontSize: '24px', color: 'black' }}>Back</h3>
                 </div>
             </Link>
-         
-      
-                <Box sx={{ display: 'flex', gap: 3, paddingBottom: 1, flexDirection: "row", justifyContent: 'space-between' }}>
-            
-            <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>To be read Shelf</h1>
-                 
-                    <Button
-                        variant="contained"
-                        sx={{
-                            width: '190px',
-                            height: '40px',
-                            backgroundColor: '#593122',
-                            marginRight: '105px',
-                            '&:hover, &.Mui-focusVisible': {
-                                backgroundColor: '#A6633C',
-                            }
-                        }}
-                    >
-                        Edit Shelf
-                    </Button>
-              
-  
+            <Box sx={{ display: 'flex', gap: 3, paddingBottom: 1, flexDirection: "row", justifyContent: 'space-between' }}>
+                <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>To Be Read Shelf</h1>
+                <Button
+                    variant="contained"
+                    sx={{
+                        width: '190px',
+                        height: '40px',
+                        backgroundColor: '#593122',
+                        marginRight: '105px',
+                        '&:hover, &.Mui-focusVisible': {
+                            backgroundColor: '#A6633C',
+                        }
+                    }}
+                >
+                    Edit Shelf
+                </Button>
             </Box>
-            <Divider sx={{ height: 4, width: 820, backgroundColor: '#8697A6', borderRadius: 5 }} />
+            <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5 }} />
             <Box>
                 <AddBookCardShelf
                     bookName="The Name of The Wind (The Kingkiuller Chronicle, #1)"
@@ -57,7 +51,7 @@ export default function InsideShelf() {
                     A high-action story written with a poet's hand, The Name of the Wind is a masterpiece that will transport readers into the body and mind of a wizard."
                     shelfId="1"
                 />
-                <Divider sx={{ height: 2, width: 820, backgroundColor: '#8697A6', borderRadius: 5 }} />
+                <Divider sx={{ height: 2, width: '75%', backgroundColor: '#8697A6', borderRadius: 5 }} />
                 <AddBookCardShelf
                     bookName="The Name of The Wind (The Kingkiuller Chronicle, #1)"
                     bookAuthor="Patrick Rothfuss"
@@ -67,10 +61,9 @@ export default function InsideShelf() {
                     shelfId="1"
                 />
             </Box>
-            <Box sx={{display: 'flex', paddingTop: 5, marginLeft: 110}}>
-
-            <Link to={`/library/shelf/1/addbook`} style={{ textDecoration: 'none' }}>
-            <Button
+            <Box sx={{ position: 'absolute', right: '0.5rem', bottom: '5rem'}}>
+                <Link to={`/library/shelf/1/addbook`} style={{ textDecoration: 'none' }}>
+                    <Button
                         variant="contained"
                         sx={{
                             width: '190px',
@@ -84,10 +77,8 @@ export default function InsideShelf() {
                     >
                         Add A Book
                     </Button>
-                 </Link>
+                </Link>
             </Box>
         </Container>
-
-        
     )
 }

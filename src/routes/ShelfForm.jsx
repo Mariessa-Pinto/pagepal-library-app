@@ -22,10 +22,10 @@ export default function ShelfForm() {
                 </div>
             </Link>
             <Box
-            sx={{ display: 'flex', flexDirection: 'column' }}>
-            <p style={{ color: 'black', fontSize: 32, fontWeight: 'bold', marginTop: '10rem' }}>Add A Shelf</p>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <p style={{ color: 'black', fontSize: 18  }}>Shelf Name</p>
+                sx={{ display: 'flex', flexDirection: 'column' }}>
+                <p style={{ color: 'black', fontSize: 32, fontWeight: 'bold', marginTop: '10rem' }}>Add A Shelf</p>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <p style={{ color: 'black', fontSize: 18 }}>Shelf Name</p>
                     <TextField
                         id="outlined-basic"
                         label="Enter Shelf Name"
@@ -53,7 +53,6 @@ export default function ShelfForm() {
                         }}
                         size="small"
                     />
-                    
                 </Box>
                 <Link
                     to="/library"
@@ -66,15 +65,15 @@ export default function ShelfForm() {
                             backgroundColor: '#593122',
                             marginRight: '105px',
                             '&:hover, &.Mui-focusVisible': {
-                                backgroundColor: '#A6633C',},
+                                backgroundColor: '#A6633C',
+                            },
                             marginTop: '3rem'
                         }}
                     >
-                    Add Shelf to Library
+                        Add Shelf to Library
                     </Button>
                 </Link>
             </Box>
-            
         </Container>
     )
 }
