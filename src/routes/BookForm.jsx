@@ -89,7 +89,7 @@ export default function BookForm() {
                     }} />} label="author" />
                 </Box>
             </Box>
-            <Divider sx={{ height: 4, width: 820, backgroundColor: '#8697A6', borderRadius: 5 }} />
+            <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5 }} />
             <Box>
                 <AddBookCard
                     bookName="The Name of The Wind (The Kingkiuller Chronicle, #1)"
@@ -99,7 +99,7 @@ export default function BookForm() {
                     A high-action story written with a poet's hand, The Name of the Wind is a masterpiece that will transport readers into the body and mind of a wizard."
                     shelfId="1"
                 />
-                <Divider sx={{ height: 2, width: 820, backgroundColor: '#8697A6', borderRadius: 5 }} />
+                <Divider sx={{ height: 2, width: '75%', backgroundColor: '#8697A6', borderRadius: 5 }} />
                 <AddBookCard
                     bookName="The Name of The Wind (The Kingkiuller Chronicle, #1)"
                     bookAuthor="Patrick Rothfuss"
