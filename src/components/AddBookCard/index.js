@@ -10,7 +10,10 @@ export default function AddBookCard(props) {
             flexDirection: 'row',
             justifyContent: 'space-between', 
             alignItems: 'flex-start',
-            gap: 2
+            gap: 2,
+            "@media (max-width: 768px)": {
+                flexDirection: 'column', marginBottom: 3
+              },
         }}>
             <img
                 src={BookCover}
@@ -35,7 +38,10 @@ export default function AddBookCard(props) {
                             marginRight: '105px',
                             '&:hover, &.Mui-focusVisible': {
                                 backgroundColor: '#A6633C',
-                            }
+                            },
+                            "@media (max-width: 768px)": {
+                                marginTop: -10
+                              },
                         }}
                     >Add Book To Shelf
                     </Button>
