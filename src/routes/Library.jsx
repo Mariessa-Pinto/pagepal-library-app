@@ -68,8 +68,9 @@ export default function Library() {
                 width: '48%',
               }}
             >
-              {/* Pass shelfName as a prop to the Shelf component */}
-              <Shelf shelfName={shelf.name} shelfId={shelf.id} />
+          <Link to={`/library/shelf/${shelf.id}`} style={{ textDecoration: 'none' }}>
+            <Shelf shelfName={shelf.name} shelfId={shelf.id} />
+        </Link>
             </Box>
           ))}
         </Box>

@@ -1,21 +1,23 @@
 import React from 'react';
 import { Link} from 'react-router-dom';
-import { Box, Button, Divider } from '@mui/material';
-import Arrow from '../assets/leftArrow.svg';
+import { Box, Button, Divider, Container } from '@mui/material';
+
 import AddBookCardShelf from '../components/BookCardShelf';
 import NavBar from '../components/NavBar';
 
 export default function Shelf({ shelfName, shelfId}) {
  
   return (
+  
     <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
-       <h2>{shelfName}</h2>
+    <Container>
+        <NavBar/>
+        <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>{shelfName}</h1>
       <Box sx={{ backgroundColor: 'white' }}>
-        <NavBar />
+   
         <Link to={`/library`} style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
-            <img src={Arrow} alt="logo" width={40} height={40} />
-            <h3 style={{ fontSize: '24px', color: 'black' }}>Back</h3>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem', }}>
+        
           </div>
         </Link>
         <Box
@@ -52,8 +54,8 @@ export default function Shelf({ shelfName, shelfId}) {
             </Button>
           </Link>
         </Box>
-        <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5, marginLeft: 20 }} />
-        <Box sx={{paddingLeft: 20}}>
+        <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5,}} />
+        <Box>
           <AddBookCardShelf
             bookName="The Name of The Wind (The Kingkiller Chronicle, #1)"
             bookAuthor="Patrick Rothfuss"
@@ -81,7 +83,8 @@ export default function Shelf({ shelfName, shelfId}) {
               bottom: '-30rem',
             },
           }}
-        >
+        >  
+        <Box sx={{alignItems: 'baseline'}}>
           <Link to={`/library/shelf/${shelfId}/addbook`} style={{ textDecoration: 'none' }}>
             <Button
               variant="contained"
@@ -92,15 +95,18 @@ export default function Shelf({ shelfName, shelfId}) {
                 marginRight: '95px',
                 '&:hover, &.Mui-focusVisible': {
                   backgroundColor: '#A6633C',
-                  marginTop: '100px',
+                  marginTop: '175px',
                 },
               }}
             >
               Add A Book
             </Button>
           </Link>
+          </Box>
         </Box>
       </Box>
+      </Container>
     </Box>
+   
   );
 }
