@@ -2,6 +2,8 @@ import './App.css';
 
 import { BrowserRouter, Routes } from "react-router-dom";
 import { config } from "./routes/config";
+import { ShelfProvider } from './routes/ShelfContext';
+
 
 export default function App() {
 
@@ -11,8 +13,12 @@ export default function App() {
   document.head.appendChild(link);
   
   return (
+    <ShelfProvider>
     <BrowserRouter>
       <Routes>{config}</Routes>
     </BrowserRouter>
+    </ShelfProvider>
+
+    
   );
 }
