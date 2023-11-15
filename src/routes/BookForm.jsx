@@ -6,6 +6,7 @@ import Arrow from '../assets/leftArrow.svg';
 
 export default function BookForm() {
     return (
+        <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
         <Container>
             <Link to={`/library/shelf/1`} style={{ textDecoration: 'none' }}>
                 <div style={{
@@ -110,5 +111,6 @@ export default function BookForm() {
                 />
             </Box>
         </Container>
+        </Box>
     )
 }

@@ -5,6 +5,8 @@ import HomeBooks from '../assets/homePageBooks.svg'
 
 export default function Home() {
     return (
+
+        <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
         <Container style={{ display: 'flex', flexDirection: 'row' }}>
             <Box
                 sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 40%', padding: '2rem', '@media (max-width: 768px)': {
@@ -46,5 +48,6 @@ export default function Home() {
                   }, }}
             />
         </Container>
+        </Box>
     );
 }
