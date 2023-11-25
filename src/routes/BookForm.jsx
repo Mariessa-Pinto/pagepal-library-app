@@ -1,10 +1,38 @@
 import { Link } from "react-router-dom"
 import { Container, Box, Button, FormControlLabel, Checkbox, TextField, Divider } from "@mui/material";
-
 import AddBookCard from "../components/AddBookCard";
 import Arrow from '../assets/leftArrow.svg';
+import { useState } from 'react'
+import SearchBooks from "../components/BooksApi";
+import { useShelf } from "./ShelfContext";
 
 export default function BookForm() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [inputValue, setInputValue] = useState('');
+
+    const { addBookToShelf } = useShelf();
+
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value)
+    }
+
+    const handleSearch = () => {
+        setSearchTerm(inputValue);
+    };
+ 
+    const handleAddBookToShelf = (book) => {
+        const shelfId = 1;
+        addBookToShelf(shelfId, book);
+        console.log("Adding book to shelf:", book.volumeInfo.title);
+    }
+
+
+
     return (
         <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
         <Container>
@@ -31,6 +59,8 @@ export default function BookForm() {
                         id="outlined-basic"
                         label="Search by Title or Author"
                         variant="outlined"
+                        value={inputValue}
+                        onChange={handleInputChange}
                         sx={{
                             width: 610,
                             '& label.Mui-focused': {
@@ -56,6 +86,7 @@ export default function BookForm() {
                     />
                     <Button
                         variant="contained"
+                        onClick={handleSearch}
                         sx={{
                             width: '190px',
                             height: '40px',
@@ -92,23 +123,7 @@ export default function BookForm() {
             </Box>
             <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5 }} />
             <Box>
-                <AddBookCard
-                    bookName="The Name of The Wind (The Kingkiuller Chronicle, #1)"
-                    bookAuthor="Patrick Rothfuss"
-                    description="Told in Kvothe's own voice, this is the tale of the magically gifted young man who grows to be the most notorious wizard his world has ever seen. 
-                    The intimate narrative of his childhood in a troupe of traveling players, his years spent as a near-feral orphan in a crime-ridden city, his daringly brazen yet successful bid to enter a legendary school of magic, and his life as a fugitive after the murder of a king form a gripping coming-of-age story unrivaled in recent literature.
-                    A high-action story written with a poet's hand, The Name of the Wind is a masterpiece that will transport readers into the body and mind of a wizard."
-                    shelfId="1"
-                />
-                <Divider sx={{ height: 2, width: '75%', backgroundColor: '#8697A6', borderRadius: 5 }} />
-                <AddBookCard
-                    bookName="The Name of The Wind (The Kingkiuller Chronicle, #1)"
-                    bookAuthor="Patrick Rothfuss"
-                    description="Told in Kvothe's own voice, this is the tale of the magically gifted young man who grows to be the most notorious wizard his world has ever seen. 
-                    The intimate narrative of his childhood in a troupe of traveling players, his years spent as a near-feral orphan in a crime-ridden city, his daringly brazen yet successful bid to enter a legendary school of magic, and his life as a fugitive after the murder of a king form a gripping coming-of-age story unrivaled in recent literature.
-                    A high-action story written with a poet's hand, The Name of the Wind is a masterpiece that will transport readers into the body and mind of a wizard."
-                    shelfId="1"
-                />
+                <SearchBooks searchTerm={searchTerm} onAddBook={handleAddBookToShelf} />
             </Box>
         </Container>
         </Box>

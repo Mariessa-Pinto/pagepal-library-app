@@ -5,14 +5,49 @@ const ShelfContext = createContext();
 
 const ShelfProvider = ({ children }) => {
   const [shelves, setShelves] = useState([]);
+  const [editingShelfId, setEditingShelfId] = useState(null);
 
   const addShelf = (shelf) => {
     setShelves([...shelves, { ...shelf, id: shelves.length + 1 }]);
   };
 
+  const updateShelf = (updatedShelf) => {
+    const newShelves = shelves.map(shelf => shelf.id === updatedShelf.id ? {...shelf, name: updatedShelf.name } : shelf);
+    console.log("Updated shelves:", newShelves);
+    setShelves(newShelves);
+  }
+
+  const addBookToShelf = (shelfId, book) => {
+    const updatedShelves = shelves.map(shelf => {
+      if (shelf.id === shelfId) {
+        const updatedBooks = shelf.books ? [...shelf.books, book] : [book];
+        return {...shelf, books: updatedBooks}
+      }
+      return shelf;
+    });
+    setShelves(updatedShelves);
+  }
+
+  const removeBookFromShelf = (shelfId, bookIndex) => {
+    setShelves(shelves.map(shelf => {
+      if (shelf.id === shelfId) {
+        return {
+          ...shelf,
+          books: shelf.books.filter((_, index) => index !== bookIndex)
+        };
+      }
+      return shelf;
+    }))
+  }
+
   const value = {
     shelves,
     addShelf,
+    updateShelf,
+    editingShelfId,
+    setEditingShelfId,
+    addBookToShelf,
+    removeBookFromShelf
   };
 
   return <ShelfContext.Provider value={value}>{children}</ShelfContext.Provider>;
