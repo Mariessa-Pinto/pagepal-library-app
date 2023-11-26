@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Box, Button, Divider } from "@mui/material";
 import { useShelf } from '../../routes/ShelfContext';
+import { Link, useParams } from 'react-router-dom';
 
 import TrashIcon from '../../assets/trash.png'
 
+
 export default function AddBookCardShelf() {
-    const { shelves, removeBookFromShelf } = useShelf();
+    const { shelves, removeBookFromShelf, addBookToShelf  } = useShelf();
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [selectedBookIndex, setSelectedBookIndex] = useState(null);
+
+    const { shelfId } = useParams();
 
     const handleToggleDescription = (bookIndex) => {
         if (selectedBookIndex === bookIndex) {
@@ -27,6 +31,10 @@ export default function AddBookCardShelf() {
         return truncated + (words.length > 150 ? '...' : '');
     };
 
+   const handleAddBook = (book) => {
+    // Use the shelfId prop passed to the component
+    addBookToShelf(shelfId, book);
+  };
     return (
         <Box sx={{
             display: 'flex',
@@ -87,6 +95,8 @@ export default function AddBookCardShelf() {
                                         },
                                     }}>
                                         <Button
+                                            component={Link}
+                                            to={`/library/`}
                                             variant="contained"
                                             sx={{
                                                 width: '190px',
