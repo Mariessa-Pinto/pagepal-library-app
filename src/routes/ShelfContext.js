@@ -11,6 +11,7 @@ const ShelfProvider = ({ children }) => {
     setShelves([...shelves, { ...shelf, id: shelves.length + 1 }]);
   };
 
+
   const updateShelf = (updatedShelf) => {
     const newShelves = shelves.map(shelf => shelf.id === updatedShelf.id ? {...shelf, name: updatedShelf.name } : shelf);
     console.log("Updated shelves:", newShelves);

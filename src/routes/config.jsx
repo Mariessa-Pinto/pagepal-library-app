@@ -13,8 +13,8 @@ export const config = (
         <Route path="/" element={<Home />} />
         <Route path="/library" element={<Library />} />
         <Route path="/library/newshelf" element={<ShelfForm />} />
-        <Route path="/library/shelf/:id" element={<Shelf />} />
-        <Route path="/library/shelf/:id/addbook" element={<BookForm />} />
-        <Route path="/library/shelf/:id/editshelf" element={<EditShelf />} />
+        <Route path="/library/shelf/:shelfId" element={<Shelf />} />
+        <Route path="/library/shelf/:shelfId/addbook" element={<BookForm />} />
+        <Route path="/library/shelf/:shelfId/editshelf" element={<EditShelf />} />
     </Route>
 );
