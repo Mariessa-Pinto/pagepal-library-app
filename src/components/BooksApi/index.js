@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Button } from "@mui/material";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
-export default function SearchBooks({ searchTerm, onAddBook, shelfId }) {
+export default function SearchBooks({ searchTerm, onAddBook }) {
+    const { shelfId } = useParams();
     const [books, setBooks] = useState([]);
     const [expandedDescriptionIndex, setExpandedDescriptionIndex] = useState(null);
 

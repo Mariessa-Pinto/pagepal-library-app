@@ -1,18 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Box, Button, Divider, Container } from '@mui/material';
 import { useShelf } from './ShelfContext';
 import AddBookCardShelf from '../components/BookCardShelf';
 import NavBar from '../components/NavBar';
 
-export default function Shelf({ shelfId }) {
+export default function Shelf() {
   const { setEditingShelfId, shelves } = useShelf();
+  const { shelfId } = useParams();
 
-  // const shelf = shelves.find(shelf => shelf.id === shelfId);
+  // Find the shelf that matches the given shelfId
+  const currentShelf = shelves.find(shelf => shelf.id === parseInt(shelfId));
+
+  // Check if the current shelf exists and extract its name
+  const shelfName = currentShelf ? currentShelf.name : 'Shelf Not Found';
 
   const handleEditShelf = () => {
     setEditingShelfId(shelfId);
   }
+  console.log(shelves)
+  console.log(shelfName)
 
   return (
     <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
@@ -30,12 +37,12 @@ export default function Shelf({ shelfId }) {
               },
             }}
           >
-            {shelves.map((shelf) => (
-              <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>{shelf.name}</h1>
-            ))}
-            <Link to={{ pathname: `/library/shelf/${shelfId}/editshelf`,  
-            state: { shelfId }, }} 
-            style={{ textDecoration: 'none', color: '#000' }}>
+            <h1>{shelfName}</h1>
+            <Link to={{
+              pathname: `/library/shelf/${shelfId}/editshelf`,
+              state: { shelfId },
+            }}
+              style={{ textDecoration: 'none', color: '#000' }}>
               <Button
                 onClick={handleEditShelf}
                 variant="contained"

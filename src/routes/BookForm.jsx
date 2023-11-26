@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Container, Box, Button, FormControlLabel, Checkbox, TextField, Divider } from "@mui/material";
 import Arrow from '../assets/leftArrow.svg';
 import { useState } from 'react'
 import SearchBooks from "../components/BooksApi";
 import { useShelf } from "./ShelfContext";
 
-export default function BookForm({ shelfId }) {
+export default function BookForm() {
+    const { shelfId } = useParams();
     const [searchTerm, setSearchTerm] = useState('');
     const [inputValue, setInputValue] = useState('');
 
@@ -29,9 +30,6 @@ export default function BookForm({ shelfId }) {
         addBookToShelf(shelfId, book);
         console.log("Adding book to shelf:", book.volumeInfo.title);
     }
-
-
-
     return (
         <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
             <Container>
@@ -99,28 +97,8 @@ export default function BookForm({ shelfId }) {
                             Search
                         </Button>
                     </Box>
-                    <Box sx={{ paddingBottom: 1 }}>
-                        <FormControlLabel control={<Checkbox sx={{
-                            color: '#593122',
-                            '&.Mui-checked': {
-                                color: '#593122',
-                            },
-                        }} />} label="all" />
-                        <FormControlLabel control={<Checkbox sx={{
-                            color: '#593122',
-                            '&.Mui-checked': {
-                                color: '#593122',
-                            },
-                        }} />} label="title" />
-                        <FormControlLabel control={<Checkbox sx={{
-                            color: '#593122',
-                            '&.Mui-checked': {
-                                color: '#593122',
-                            },
-                        }} />} label="author" />
-                    </Box>
                 </Box>
-                <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5 }} />
+                <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5, marginTop: '1rem' }} />
                 <Box>
                     <SearchBooks searchTerm={searchTerm} onAddBook={handleAddBookToShelf} />
                 </Box>

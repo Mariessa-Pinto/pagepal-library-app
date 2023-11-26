@@ -1,36 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Container, Box, Button, TextField } from "@mui/material";
 import Arrow from '../assets/leftArrow.svg';
 import { useShelf } from './ShelfContext';
 import { useState, useEffect } from "react";
 
 
-export default function EditShelf({ shelfId }) {
-  // const location = useLocation();
+export default function EditShelf() {
   const { shelves, updateShelf } = useShelf();
+  const { shelfId } = useParams();
 
-  const shelf = shelves.find((shelf) => shelf.id === shelfId);
+  const currentShelf = shelves.find(shelf => shelf.id === parseInt(shelfId));
 
-  const [editShelfName, setEditShelfName] = useState(shelf ? shelf.name : '');
+  const [editShelfName, setEditShelfName] = useState('');
 
   useEffect(() => {
-    if (shelf) {
-      setEditShelfName(shelf.name);
+    if (currentShelf) {
+      setEditShelfName(currentShelf.name || '');
     }
-  }, [shelf]); 
+  }, [currentShelf]);
 
   const handleEditShelf = () => {
     const trimmedShelfName = editShelfName.trim();
-    if (trimmedShelfName !== '' && shelfId) {
-      updateShelf({ id: shelfId, name: trimmedShelfName });
-      setEditShelfName('');
+    if (trimmedShelfName !== '' && shelfId && currentShelf) {
+      const updatedShelf = { ...currentShelf, name: trimmedShelfName };
+      updateShelf(updatedShelf);
+      setEditShelfName(''); // Reset input field after update if needed
     }
   };
 
   return (
     <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
       <Container>
-        <Link to={`/library/shelf/:id`} style={{ textDecoration: 'none' }}>
+        <Link to={`/library/shelf/${shelfId}`} style={{ textDecoration: 'none' }}>
           <div style={{
             display: 'flex',
             flexDirection: 'row',
@@ -80,7 +81,7 @@ export default function EditShelf({ shelfId }) {
               onChange={(e) => setEditShelfName(e.target.value)}
             />
           </Box>
-          <Link to="/library/shelf/:id" style={{ textDecoration: 'none' }}>
+          <Link to={`/library/shelf/${shelfId}`} style={{ textDecoration: 'none' }}>
             <Button
               onClick={handleEditShelf}
               variant="contained"

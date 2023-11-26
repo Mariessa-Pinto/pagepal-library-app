@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Box, Button } from "@mui/material";
 
 export default function AddBookCard(props) {
+    const { shelfId } = useParams();
     return (
         <Box sx={{
             display: 'flex',
@@ -26,7 +27,7 @@ export default function AddBookCard(props) {
                 <p style={{ fontSize: 16, lineHeight: 1.5 }}>{props.description}</p>
             </Box>
             <Box sx={{ paddingLeft: 5, paddingTop: '12%' }}>
-                <Link to={`/library/shelf/${props.shelfId}`} style={{ textDecoration: 'none', color: "#000" }}>
+                <Link to={`/library/shelf/${shelfId}`} style={{ textDecoration: 'none', color: "#000" }}>
                     <Button
                         variant="contained"
                         sx={{
