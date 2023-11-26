@@ -6,7 +6,7 @@ import AddBookCardShelf from '../components/BookCardShelf';
 import NavBar from '../components/NavBar';
 
 export default function Shelf() {
-  const { setEditingShelfId, shelves } = useShelf();
+  const { setEditingShelfId, shelves, addBookToShelf } = useShelf();
   const { shelfId } = useParams();
 
   // Find the shelf that matches the given shelfId
@@ -20,6 +20,20 @@ export default function Shelf() {
   }
   console.log(shelves)
   console.log(shelfName)
+
+  const handleAddBookToShelf = (book, shelfId) => {
+    // Find the shelf with the specified shelfId
+    const selectedShelf = shelves.find(shelf => shelf.id === parseInt(shelfId));
+
+    // Check if the shelf exists
+    if (selectedShelf) {
+      // Add the book to the selected shelf
+      addBookToShelf(selectedShelf.id, book);
+    } else {
+      // Handle the case where the shelf is not found
+      console.error(`Shelf with id ${shelfId} not found.`);
+    }
+  };
 
   return (
     <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
