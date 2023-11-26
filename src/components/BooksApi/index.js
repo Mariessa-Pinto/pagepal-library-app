@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Button } from "@mui/material";
+import { Link } from 'react-router-dom';
 
 
-export default function SearchBooks({ searchTerm, onAddBook }) {
+export default function SearchBooks({ searchTerm, onAddBook, shelfId }) {
     const [books, setBooks] = useState([]);
+    const [expandedDescriptionIndex, setExpandedDescriptionIndex] = useState(null);
 
-   const apiKey = process.env.REACT_APP_BOOKS_API_KEY
+
+    //    const apiKey = process.env.REACT_APP_BOOKS_API_KEY
 
     useEffect(() => {
         if (!searchTerm) return;
@@ -13,9 +16,9 @@ export default function SearchBooks({ searchTerm, onAddBook }) {
         const books_url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchTerm)}&key=AIzaSyBft4dK7irwx7K6fvOoW-oSMMH1MtkH15w`
         async function getBooks() {
             try {
-            const response = await fetch(books_url);
-            const data = await response.json();
-            setBooks(data.items || []);
+                const response = await fetch(books_url);
+                const data = await response.json();
+                setBooks(data.items || []);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -24,30 +27,97 @@ export default function SearchBooks({ searchTerm, onAddBook }) {
     }, [searchTerm]);
 
     const handleAddBook = (book) => {
-        onAddBook(book);
+        onAddBook(book, shelfId);
+    };
+
+    const toggleDescription = (index) => {
+        if (expandedDescriptionIndex === index) {
+            setExpandedDescriptionIndex(null);
+        } else {
+            setExpandedDescriptionIndex(index);
+        }
     };
 
     return (
         <Box sx={{
             display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'left',
-            alignItems: 'flex-start',
-            gap: 2,
-            maxWidth: '100rem'
+            flexDirection: 'column',
         }}>
             {books.map((book, index) => (
-                <Box key={index}>
-                    <h2>{book.volumeInfo.title}</h2>
-                    <p>by {book.volumeInfo.authors?.join(', ')}</p>
-                    <p>{book.description}</p>
-                  
-                    <Button 
-                    variant="contained" 
-                    onClick={() => handleAddBook(book)}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'left',
+                        alignItems: 'center',
+                        gap: 2,
+                        maxWidth: '100rem'
+                    }}
+                    key={index}
                 >
-                    Add to Shelf
-                </Button>
+                    {/* Book Thumbnail */}
+                    {book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail && (
+                        <img
+                            src={book.volumeInfo.imageLinks.thumbnail}
+                            alt='Book thumbnail'
+                            width={195}
+                            height={280}
+                            style={{ marginTop: 20, objectFit: 'cover'  }}
+                        />
+                    )}
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        maxWidth: '40rem'
+                    }}>
+                        {/* Book Title and Authors */}
+                        <h2 style={{margin: 0, marginTop: '1rem', fontSize: 20, fontWeight: '700'}}>{book.volumeInfo.title}</h2>
+                        <p style={{margin: 0, marginTop: '-0.2rem', fontSize: 16, fontWeight: '300'}}>by {book.volumeInfo.authors?.join(', ')}</p>
+                        {/* Description */}
+                        {book.volumeInfo.description && (
+                            <React.Fragment>
+                                {expandedDescriptionIndex !== index && (
+                                    <p style={{ fontSize: 16, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 5, WebkitBoxOrient: 'vertical' }}>
+                                        {book.volumeInfo.description}
+                                    </p>
+                                )}
+                                {expandedDescriptionIndex === index && (
+                                    <p style={{fontSize: 16,}}>{book.volumeInfo.description}</p>
+                                )}
+                                {/* Toggle button */}
+                                <Button   
+                                    variant="text" 
+                                    onClick={() => toggleDescription(index)}
+                                    sx={{ 
+                                        marginTop: '0.5rem', 
+                                        color: '#593122',
+                                        '&:hover, &.Mui-focusVisible': {
+                                            backgroundColor: 'rgba(166, 99, 60, .1)',
+                                        },
+                                    }}
+                                >
+                                    {expandedDescriptionIndex === index ? 'Hide Description' : 'Read More'}
+                                </Button>
+                            </React.Fragment>
+                        )}
+                    </Box>
+                    {/* Add to Shelf button */}
+                    <Link to={`/library/shelf/${shelfId}`} style={{ textDecoration: 'none' }}>
+                        <Button
+                            variant="contained"
+                            onClick={() => handleAddBook(book)}
+                            sx={{
+                                width: '270.19px',
+                                height: '50px',
+                                backgroundColor: '#593122',
+                                '&:hover, &.Mui-focusVisible': {
+                                    backgroundColor: '#A6633C',
+                                },
+                            }}
+                        >
+                            Add to Shelf
+                        </Button>
+                    </Link>
                 </Box>
             ))}
         </Box>

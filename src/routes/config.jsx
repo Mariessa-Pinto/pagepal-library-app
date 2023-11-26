@@ -15,6 +15,6 @@ export const config = (
         <Route path="/library/newshelf" element={<ShelfForm />} />
         <Route path="/library/shelf/:id" element={<Shelf />} />
         <Route path="/library/shelf/:id/addbook" element={<BookForm />} />
-        <Route path="/library/editshelf" element={<EditShelf />} />
+        <Route path="/library/shelf/:id/editshelf" element={<EditShelf />} />
     </Route>
 );

@@ -11,14 +11,12 @@ export default function App() {
   link.href = 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap';
   link.rel = 'stylesheet';
   document.head.appendChild(link);
-  
+
   return (
     <ShelfProvider>
-    <BrowserRouter>
-      <Routes>{config}</Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>{config}</Routes>
+      </BrowserRouter>
     </ShelfProvider>
-
-    
   );
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Box, Button } from '@mui/material';
 import NavBar from '../components/NavBar';
-import Shelf from '../components/Shelf'; 
+import Shelf from '../components/Shelf';
 import { useShelf } from './ShelfContext';
 
 export default function Library() {
@@ -68,9 +68,9 @@ export default function Library() {
                 width: '48%',
               }}
             >
-          <Link to={`/library/shelf/${shelf.id}`} style={{ textDecoration: 'none' }}>
-            <Shelf shelfName={shelf.name} shelfId={shelf.id} />
-        </Link>
+              <Link to={`/library/shelf/${shelf.id}`} style={{ textDecoration: 'none' }}>
+                <Shelf shelfName={shelf.name} shelfId={shelf.id} />
+              </Link>
             </Box>
           ))}
         </Box>
