@@ -11,8 +11,8 @@ export default function Shelf(props) {
         height: 187,
         "@media (max-width: 768px)": {
             width: 420
-          },
-         
+        },
+
     };
 
     return (
@@ -25,11 +25,13 @@ export default function Shelf(props) {
                 marginRight: '6.45rem',
                 "@media (max-width: 768px)": {
                     marginRight: '-13.2rem'
-                  },
+                },
             }}>
-                <h2 style={{ paddingLeft: '10rem', "@media (max-width: 768px)": {
-                    marginLeft: '-102rem'
-                  }, }}>{props.shelfName}</h2>
+                <h2 style={{
+                    paddingLeft: '10rem', "@media (max-width: 768px)": {
+                        marginLeft: '-102rem'
+                    },
+                }}>{props.shelfName}</h2>
                 <Box sx={boxStyle}>
                 </Box>
             </Box>

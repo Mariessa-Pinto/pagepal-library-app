@@ -5,105 +5,97 @@ import { useShelf } from './ShelfContext';
 import AddBookCardShelf from '../components/BookCardShelf';
 import NavBar from '../components/NavBar';
 
-export default function Shelf({ shelfName, shelfId}) {
-  const { setEditingShelfId } = useShelf();
-  const { shelves } = useShelf();
+export default function Shelf({ shelfId }) {
+  const { setEditingShelfId, shelves } = useShelf();
+
+  // const shelf = shelves.find(shelf => shelf.id === shelfId);
+
   const handleEditShelf = () => {
     setEditingShelfId(shelfId);
   }
 
   return (
-  
     <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
-    <Container>
-        <NavBar/>
-        <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>{shelfName}</h1>
-      <Box sx={{ backgroundColor: 'white' }}>
-   
-        <Link to={`/library`} style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem', }}>
-        
-          </div>
-        </Link>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: 3,
-            paddingBottom: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            "@media (max-width: 768px)": {
-             
-            },
-          }}
-        >
-      
-          <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>{shelfName}</h1>
-          <Link to={{pathname: `/library/editshelf`, state: { shelfId }}} style={{ textDecoration: 'none', color: '#000' }}>
-            <Button
-            onClick={handleEditShelf}
-              variant="contained"
-              sx={{
-                width: '190px',
-                height: '40px',
-                backgroundColor: '#593122',
-                marginRight: '105px',
-                '&:hover, &.Mui-focusVisible': {
-                  backgroundColor: '#A6633C',
-                },
-                "@media (max-width: 768px)": {
-                  marginRight: '20px',
-                },
-              }}
-            >
-              Edit Shelf
-            </Button>
-          </Link>
-        </Box>
-        <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5,}} />
-        <Box>
-          <AddBookCardShelf
-            description="Told in Kvothe's own voice, this is the tale of the magically gifted young man who grows to be the most notorious wizard his world has ever seen. 
-            The intimate narrative of his childhood in a troupe of traveling players, his years spent as a near-feral orphan in a crime-ridden city, his daringly brazen yet successful bid to enter a legendary school of magic, and his life as a fugitive after the murder of a king form a gripping coming-of-age story unrivaled in recent literature.
-            A high-action story written with a poet's hand, The Name of the Wind is a masterpiece that will transport readers into the body and mind of a wizard."
-            shelfId={shelfId}
-          />
-          <Divider sx={{ height: 2, width: '75%', backgroundColor: '#8697A6', borderRadius: 5 }} />
-          
-        </Box>
-        <Box
-          sx={{
-            position: 'absolute',
-            right: '0.5rem',
-            bottom: '5rem',
-            "@media (max-width: 768px)": {
-              bottom: '-30rem',
-            },
-          }}
-        >  
-        <Box sx={{alignItems: 'baseline'}}>
-          <Link to={`/library/shelf/${shelfId}/addbook`} style={{ textDecoration: 'none' }}>
-            <Button
-              variant="contained"
-              sx={{
-                width: '190px',
-                height: '40px',
-                backgroundColor: '#593122',
-                marginRight: '95px',
-                '&:hover, &.Mui-focusVisible': {
-                  backgroundColor: '#A6633C',
-                  marginTop: '175px',
-                },
-              }}
-            >
-              Add A Book
-            </Button>
-          </Link>
+      <Container>
+        <NavBar />
+        <Box sx={{ backgroundColor: 'white' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 3,
+              paddingBottom: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              "@media (max-width: 768px)": {
+              },
+            }}
+          >
+            {shelves.map((shelf) => (
+              <h1 style={{ color: 'black', margin: 0, paddingBottom: 10 }}>{shelf.name}</h1>
+            ))}
+            <Link to={{ pathname: `/library/shelf/${shelfId}/editshelf`,  
+            state: { shelfId }, }} 
+            style={{ textDecoration: 'none', color: '#000' }}>
+              <Button
+                onClick={handleEditShelf}
+                variant="contained"
+                sx={{
+                  width: '190px',
+                  height: '40px',
+                  backgroundColor: '#593122',
+                  marginRight: '105px',
+                  '&:hover, &.Mui-focusVisible': {
+                    backgroundColor: '#A6633C',
+                  },
+                  "@media (max-width: 768px)": {
+                    marginRight: '20px',
+                  },
+                }}
+              >
+                Edit Shelf
+              </Button>
+            </Link>
+          </Box>
+          <Divider sx={{ height: 4, width: '85%', backgroundColor: '#8697A6', borderRadius: 5, marginBottom: '0.5rem' }} />
+          <Box>
+            <AddBookCardShelf
+              shelfId={shelfId}
+            />
+          </Box>
+          <Box
+            sx={{
+              position: 'sticky',
+              bottom: '5rem',
+              right: '20rem',
+              zIndex: 1,
+              width: 300,
+              "@media (max-width: 768px)": {
+                bottom: '-30rem',
+              },
+            }}
+          >
+            <Box>
+              <Link to={`/library/shelf/${shelfId}/addbook`} style={{ textDecoration: 'none' }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    width: '190px',
+                    height: '40px',
+                    marginLeft: '65rem',
+                    backgroundColor: '#593122',
+                    '&:hover, &.Mui-focusVisible': {
+                      backgroundColor: '#A6633C',
+                    },
+                  }}
+                >
+                  Add A Book
+                </Button>
+              </Link>
+            </Box>
           </Box>
         </Box>
-      </Box>
       </Container>
     </Box>
-   
+
   );
 }

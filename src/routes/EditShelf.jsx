@@ -1,34 +1,28 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Box, Button, TextField } from "@mui/material";
 import Arrow from '../assets/leftArrow.svg';
 import { useShelf } from './ShelfContext';
 import { useState, useEffect } from "react";
 
 
-export default function EditShelf() {
-  const location = useLocation();
-  const editingShelfId = location.state?.shelfId;
-  const [editShelfName, setEditShelfName] = useState('');
+export default function EditShelf({ shelfId }) {
+  // const location = useLocation();
   const { shelves, updateShelf } = useShelf();
 
+  const shelf = shelves.find((shelf) => shelf.id === shelfId);
+
+  const [editShelfName, setEditShelfName] = useState(shelf ? shelf.name : '');
 
   useEffect(() => {
-    if(editingShelfId !== null) {
-        const foundShelf = shelves.find(shelf => shelf.id === editingShelfId);
-        if(foundShelf) {
-        setEditShelfName(foundShelf.name);
-        } else {
-            console.error("shelf id is undefined")
-            console.log("Editing Shelf ID:", editingShelfId);
-        }
+    if (shelf) {
+      setEditShelfName(shelf.name);
     }
-  }, [shelves, editingShelfId]);
+  }, [shelf]); 
 
   const handleEditShelf = () => {
     const trimmedShelfName = editShelfName.trim();
-    console.log("Editing Shelf ID:", editingShelfId);
-    if (trimmedShelfName !== '' && editingShelfId != null) {
-      updateShelf({ id: editingShelfId, name: trimmedShelfName });
+    if (trimmedShelfName !== '' && shelfId) {
+      updateShelf({ id: shelfId, name: trimmedShelfName });
       setEditShelfName('');
     }
   };
@@ -36,7 +30,7 @@ export default function EditShelf() {
   return (
     <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
       <Container>
-        <Link to={`/library`} style={{ textDecoration: 'none' }}>
+        <Link to={`/library/shelf/:id`} style={{ textDecoration: 'none' }}>
           <div style={{
             display: 'flex',
             flexDirection: 'row',
@@ -53,12 +47,12 @@ export default function EditShelf() {
           </div>
         </Link>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
-          <p style={{ color: 'black', fontSize: 32, fontWeight: 'bold', marginTop: '5rem' }}>Edit Shelf</p>
+          <p style={{ color: 'black', fontSize: 32, fontWeight: 'bold', marginTop: '5rem' }}>Edit Shelf Name</p>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
-            <p style={{ color: 'black', fontSize: 18 }}>Edit Shelf Name</p>
+            <p style={{ color: 'black', fontSize: 18 }}>Shelf Name</p>
             <TextField
               id="outlined-basic"
-              label="Enter New Shelf Name"
+              // label="Enter New Shelf Name"
               variant="outlined"
               sx={{
                 width: 358,
@@ -86,7 +80,7 @@ export default function EditShelf() {
               onChange={(e) => setEditShelfName(e.target.value)}
             />
           </Box>
-          <Link to="/library" style={{ textDecoration: 'none' }}>
+          <Link to="/library/shelf/:id" style={{ textDecoration: 'none' }}>
             <Button
               onClick={handleEditShelf}
               variant="contained"
