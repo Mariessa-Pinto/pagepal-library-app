@@ -1,20 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Box, Button } from "@mui/material";
 import { Link, useParams } from 'react-router-dom';
-
+import { useShelf } from '../../routes/ShelfContext';
 
 export default function SearchBooks({ searchTerm, onAddBook }) {
-    const { shelfId } = useParams();
-    const [books, setBooks] = useState([]);
-    const [expandedDescriptionIndex, setExpandedDescriptionIndex] = useState(null);
+  const { shelfId } = useParams();
+  const [books, setBooks] = useState([]);
+  const [expandedDescriptionIndex, setExpandedDescriptionIndex] = useState(null);
+  const { shelves, addBookToShelf } = useShelf();
 
-
-    //    const apiKey = process.env.REACT_APP_BOOKS_API_KEY
+  const handleAddBookToShelf = (book) => {
+      // Check if the current shelf matches the shelfId
+      if (shelves.some(shelf => shelf.id === parseInt(shelfId))) {
+          // Use the shelfId prop passed to the component
+          addBookToShelf(shelfId, book);
+          console.log("Shelves after adding book:", shelves);
+      } else {
+          // Handle the case where the shelf is not found
+          console.error(`Shelf with id ${shelfId} not found.`);
+      }
+  };
 
     useEffect(() => {
         if (!searchTerm) return;
 
         const books_url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchTerm)}&key=AIzaSyBft4dK7irwx7K6fvOoW-oSMMH1MtkH15w`
+
+
         async function getBooks() {
             try {
                 const response = await fetch(books_url);
@@ -24,12 +36,9 @@ export default function SearchBooks({ searchTerm, onAddBook }) {
                 console.error('Error fetching data:', error);
             }
         }
-        getBooks()
-    }, [searchTerm]);
 
-    const handleAddBook = (book) => {
-        onAddBook(book, shelfId);
-    };
+        getBooks();
+    }, [searchTerm]);
 
     const toggleDescription = (index) => {
         if (expandedDescriptionIndex === index) {
@@ -106,7 +115,7 @@ export default function SearchBooks({ searchTerm, onAddBook }) {
                     <Link to={`/library/shelf/${shelfId}`} style={{ textDecoration: 'none' }}>
                         <Button
                             variant="contained"
-                            onClick={() => handleAddBook(book)}
+                            onClick={() => handleAddBookToShelf(book)} 
                             sx={{
                                 width: '270.19px',
                                 height: '50px',
@@ -122,5 +131,5 @@ export default function SearchBooks({ searchTerm, onAddBook }) {
                 </Box>
             ))}
         </Box>
-    )
+    );
 }
