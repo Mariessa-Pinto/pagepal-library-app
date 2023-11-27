@@ -175,20 +175,14 @@ export default function AddBookCardShelf() {
                             >Change Shelf
                             </Button>
                             <Button
-                                onClick={() => handleDeleteBook(currentShelf.id, bookIndex)}
-                                sx={{
-                                    '&:hover, &.Mui-focusVisible': {
-                                        backgroundColor: 'rgba(166, 99, 60, .1)',
-                                    },
-                                }}
-                            >
-                                <img
-                                    src={TrashIcon}
-                                    height={40}
-                                    width={40}
-                                    alt='trash icon'
-                                />
-                            </Button>
+            onClick={(e) => {
+                e.stopPropagation(); // Prevents setSelectedBookIndex from being called
+                handleDeleteBook(currentShelf.id, book.id);
+            }}
+            sx={{ /* Your styles */ }}
+        >
+            <img src={TrashIcon} alt='Delete' height={40} width={40} />
+        </Button>
                         </Box>
                         <Divider sx={{ height: 2, width: '75%', backgroundColor: '#8697A6', borderRadius: 5, marginTop: '2rem', marginBottom: '1rem' }} />
                     </Box>
