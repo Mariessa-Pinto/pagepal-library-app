@@ -20,13 +20,19 @@ const ShelfProvider = ({ children }) => {
 
   const addBookToShelf = (shelfId, book) => {
     console.log(`Adding book to shelfId: ${shelfId}`);
+    
+    // Clone the shelves state to avoid directly mutating state
     const updatedShelves = shelves.map(shelf => {
-        if (shelf.id === shelfId) {
+        if (shelf.id === parseInt(shelfId)) {
+            // Ensure shelf.books is an array; if it doesn't exist, create a new array
             const updatedBooks = shelf.books ? [...shelf.books, book] : [book];
+            // Update the shelf with the updated book list
             return { ...shelf, books: updatedBooks };
         }
         return shelf;
     });
+
+    // Set the updated shelves state
     setShelves(updatedShelves);
     console.log("Updated shelves:", updatedShelves);
 };
