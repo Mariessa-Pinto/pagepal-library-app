@@ -1,7 +1,7 @@
-import { Link, useParams } from "react-router-dom"
-import { Container, Box, Button, FormControlLabel, Checkbox, TextField, Divider } from "@mui/material";
+import { Link, useParams } from "react-router-dom";
+import { Container, Box, Button, TextField, Divider } from "@mui/material";
 import Arrow from '../assets/leftArrow.svg';
-import { useState } from 'react'
+import { useState } from 'react';
 import SearchBooks from "../components/BooksApi";
 import { useShelf } from "./ShelfContext";
 
@@ -12,24 +12,20 @@ export default function BookForm() {
 
     const { addBookToShelf } = useShelf();
 
-
-    // const handleSearchChange = (event) => {
-    //     setSearchTerm(event.target.value);
-    // };
-
     const handleInputChange = (event) => {
-        setInputValue(event.target.value)
-    }
+        setInputValue(event.target.value);
+    };
 
     const handleSearch = () => {
         setSearchTerm(inputValue);
     };
 
     const handleAddBookToShelf = (book) => {
-        const shelfId = 1;
+        // Ensure that the correct shelfId is used
         addBookToShelf(shelfId, book);
         console.log("Adding book to shelf:", book.volumeInfo.title);
-    }
+    };
+
     return (
         <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
             <Container>
@@ -104,5 +100,5 @@ export default function BookForm() {
                 </Box>
             </Container>
         </Box>
-    )
+    );
 }

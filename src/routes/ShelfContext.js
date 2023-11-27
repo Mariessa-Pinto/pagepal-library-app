@@ -19,16 +19,17 @@ const ShelfProvider = ({ children }) => {
   }
 
   const addBookToShelf = (shelfId, book) => {
-    setShelves((prevShelves) => {
-      return prevShelves.map((shelf) => {
+    console.log(`Adding book to shelfId: ${shelfId}`);
+    const updatedShelves = shelves.map(shelf => {
         if (shelf.id === shelfId) {
-          const updatedBooks = shelf.books ? [...shelf.books, book] : [book];
-          return { ...shelf, books: updatedBooks };
+            const updatedBooks = shelf.books ? [...shelf.books, book] : [book];
+            return { ...shelf, books: updatedBooks };
         }
         return shelf;
-      });
     });
-  };
+    setShelves(updatedShelves);
+    console.log("Updated shelves:", updatedShelves);
+};
 
   const removeBookFromShelf = (shelfId, bookIndex) => {
     setShelves(shelves.map(shelf => {
