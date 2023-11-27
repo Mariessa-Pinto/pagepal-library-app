@@ -11,11 +11,13 @@ export default function AddBookCardShelf() {
     const [selectedBookIndex, setSelectedBookIndex] = useState(null);
     const { shelfId } = useParams();
     const [currentShelf, setCurrentShelf] = useState(null);
+    const [showChangeShelf, setShowChangeShelf] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Find the current shelf
         const foundShelf = shelves.find(shelf => shelf.id === parseInt(shelfId));
         setCurrentShelf(foundShelf);
+        setLoading(false); // Set loading to false once data is fetched
     }, [shelves, shelfId]);
 
     const handleToggleDescription = (bookIndex) => {
@@ -40,6 +42,37 @@ export default function AddBookCardShelf() {
         return null;
     }
 
+    const handleChangeShelf = (selectedShelfId, bookIndex) => {
+        if (bookIndex === null || bookIndex === undefined || !currentShelf.books[bookIndex]) {
+            return; // Ensure book index is valid before proceeding
+        }
+        
+        const bookToMove = currentShelf.books[bookIndex];
+    
+        // Find the shelf to move the book to
+        const targetShelf = shelves.find(shelf => shelf.id === selectedShelfId);
+    
+        if (targetShelf) {
+            // Add the book to the selected shelf
+            addBookToShelf(selectedShelfId, bookToMove);
+    
+            // Remove the book from the current shelf
+            removeBookFromShelf(currentShelf.id, bookIndex);
+        }
+        
+        // Close the dropdown/modal after changing the shelf
+        setShowChangeShelf(false);
+    };
+
+
+    if (loading) {
+        return <p>Loading...</p>; // Display loading state while fetching data
+    }
+
+    if (!currentShelf || !currentShelf.books) {
+        return <p>No books found in this shelf.</p>; // Handle cases where shelf data is empty or not found
+    }
+
     return (
         <Box sx={{
             display: 'flex',
@@ -50,7 +83,7 @@ export default function AddBookCardShelf() {
             maxWidth: '110rem'
         }}>
             <Box>
-            {currentShelf.books.map((book, bookIndex) => (
+                {currentShelf.books.map((book, bookIndex) => (
                     <Box key={bookIndex}>
                         <Box sx={{
                             display: 'flex',
@@ -96,9 +129,30 @@ export default function AddBookCardShelf() {
                                 marginRight: '-15rem', width: '16rem'
                             },
                         }}>
+                            <Box>
+                                {showChangeShelf && (
+                                    <div>
+                                        {shelves.map(shelf => (
+                                            <Button
+                                                key={shelf.id}
+                                                onClick={() => handleChangeShelf(shelf.id, bookIndex)}
+                                                sx={{
+                                                    backgroundColor: '#FFFFFF',
+                                                    color: '#593122',
+                                                    marginRight: '1rem',
+                                                    '&:hover': {
+                                                        backgroundColor: 'rgba(166, 99, 60, .1)',
+                                                    },
+                                                }}
+                                            >
+                                                {shelf.name}
+                                            </Button>
+                                        ))}
+                                    </div>
+                                )}
+                            </Box>
                             <Button
-                                component={Link}
-                                to={`/library/`}
+                                onClick={() => setShowChangeShelf(!showChangeShelf)}
                                 variant="contained"
                                 sx={{
                                     width: '190px',
