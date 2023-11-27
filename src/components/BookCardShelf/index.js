@@ -30,7 +30,9 @@ export default function AddBookCardShelf() {
     };
 
     const handleDeleteBook = (shelfId, bookIndex) => {
+        console.log("Before removeBookFromShelf");
         removeBookFromShelf(shelfId, bookIndex);
+        console.log("After removeBookFromShelf");
     };
 
     const truncateDescription = (description) => {
@@ -42,26 +44,30 @@ export default function AddBookCardShelf() {
         return null;
     }
 
-    const handleChangeShelf = (selectedShelfId, bookIndex) => {
-        if (bookIndex === null || bookIndex === undefined || !currentShelf.books[bookIndex]) {
+    const handleChangeShelf = (selectedShelfId) => {
+        console.log(`Selected book index: ${selectedBookIndex}, Target shelf ID: ${selectedShelfId}`);
+        if (selectedBookIndex === null || selectedBookIndex === undefined) {
             return; // Ensure book index is valid before proceeding
         }
         
-        const bookToMove = currentShelf.books[bookIndex];
+        const bookToMove = currentShelf.books[selectedBookIndex];
     
         // Find the shelf to move the book to
         const targetShelf = shelves.find(shelf => shelf.id === selectedShelfId);
     
         if (targetShelf) {
             // Add the book to the selected shelf
+            console.log(`Adding book to shelf ID: ${selectedShelfId}`);
             addBookToShelf(selectedShelfId, bookToMove);
     
             // Remove the book from the current shelf
-            removeBookFromShelf(currentShelf.id, bookIndex);
+            console.log(`Removing book from shelf ID: ${currentShelf.id}`);
+            removeBookFromShelf(currentShelf.id, bookToMove.id);
         }
         
         // Close the dropdown/modal after changing the shelf
         setShowChangeShelf(false);
+        setSelectedBookIndex(null);
     };
 
 
@@ -84,7 +90,7 @@ export default function AddBookCardShelf() {
         }}>
             <Box>
                 {currentShelf.books.map((book, bookIndex) => (
-                    <Box key={bookIndex}>
+                    <Box key={bookIndex} onClick={() => setSelectedBookIndex(bookIndex)}>
                         <Box sx={{
                             display: 'flex',
                             flexDirection: 'row',
@@ -135,7 +141,7 @@ export default function AddBookCardShelf() {
                                         {shelves.map(shelf => (
                                             <Button
                                                 key={shelf.id}
-                                                onClick={() => handleChangeShelf(shelf.id, bookIndex)}
+                                                onClick={() => handleChangeShelf(shelf.id)}
                                                 sx={{
                                                     backgroundColor: '#FFFFFF',
                                                     color: '#593122',
