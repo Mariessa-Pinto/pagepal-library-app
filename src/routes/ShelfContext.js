@@ -29,25 +29,32 @@ const ShelfProvider = ({ children }) => {
             // Update the shelf with the updated book list
             return { ...shelf, books: updatedBooks };
         }
+        if (shelf.books && shelf.books.find(b => b.id === book.id)) {
+            // If the book exists in another shelf, remove it
+            const filteredBooks = shelf.books.filter(b => b.id !== book.id);
+            return { ...shelf, books: filteredBooks };
+        }
         return shelf;
     });
 
+    // Log the updated shelves for debugging
+    console.log("Updated shelves after adding/removing book:", updatedShelves);
+
     // Set the updated shelves state
     setShelves(updatedShelves);
-    console.log("Updated shelves:", updatedShelves);
 };
 
-  const removeBookFromShelf = (shelfId, bookIndex) => {
-    setShelves(shelves.map(shelf => {
+const removeBookFromShelf = (shelfId, bookIndex) => {
+  setShelves(shelves.map(shelf => {
       if (shelf.id === shelfId) {
-        return {
-          ...shelf,
-          books: shelf.books.filter((_, index) => index !== bookIndex)
-        };
+          const updatedBooks = shelf.books.filter((_, index) => index !== bookIndex);
+          // Log the removed book for debugging
+          console.log("Removed book:", shelf.books[bookIndex]);
+          return { ...shelf, books: updatedBooks };
       }
       return shelf;
-    }))
-  }
+  }));
+};
 
   const value = {
     shelves,
